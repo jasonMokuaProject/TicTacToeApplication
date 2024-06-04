@@ -1,0 +1,20 @@
+section{
+
+   width: 100%;
+ text-align: center;
+}
+#GameContainer{
+display: grid;
+width:225px;
+margin: auto;
+grid-template-columns: repeat(3,auto);
+}
+.cell{
+border: 1px solid black;
+text-align: center;
+font-size: 50px;
+cursor: pointer;
+padding: 0px;
+width:75px;
+height: 75px;
+}
