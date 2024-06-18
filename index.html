@@ -12,54 +12,228 @@
     <title> Tic Tac Toe</title>
 
 </head>
+
 <body>
 
     <section>
         <h2>Tic Tac Toe</h2>
-            <div id="GameContainer">
-                <div cellIndex="0" class="cell"> </div>
-                <div cellIndex="1" class="cell">x </div>
-                <div cellIndex="2" class="cell"> </div>
-                <div cellIndex="3" class="cell"> </div>
-                <div cellIndex="4" class="cell"> </div>
-                <div cellIndex="5" class="cell"> x</div>
-                <div cellIndex="6" class="cell"> </div>
-                <div cellIndex="7" class="cell">x </div>
-                <div cellIndex="8" class="cell"> </div>
-            </div>
-            <button id="restartB"> Restart</button>
-            <p id="winner"></p>
+        <div id="GameContainer">
+            <div cellIndex="0" class="cell"></div>
+            <div cellIndex="1" class="cell"></div>
+            <div cellIndex="2" class="cell"></div>
+            <div cellIndex="3" class="cell"></div>
+            <div cellIndex="4" class="cell"></div>
+            <div cellIndex="5" class="cell"></div>
+            <div cellIndex="6" class="cell"></div>
+            <div cellIndex="7" class="cell"></div>
+            <div cellIndex="8" class="cell"></div>
+        </div>
+        <p>Player's turn:<span id="PlayerTurn"> X </span> </p>
+        <button id="restartB" onclick="resetGame()"> Restart</button>
+
+        <p id="winner"></p>
 
     </section>
 
 
-<script>
-
-let individualcells = document.getElementsByClassName("cell");
-let whoWon = document.getElementById("winner");
-let replayGame = document.getElementById("restartB");
-let winConditions =[
-[0,1,2],
-[3,4,5],
-[6,7,8],
-[0,3,6],
-[1,4,7],
-[2,5,8],
-[0,4,8],
-[2,4,6]
-];
-
-for(x of individualcells){
-
-x.addEventListener("click",clickedcell(this));
-}
+    <script>
 
 
-function clickedcell(event){
 
-    console.log(event.target);
-}
-</script>
+        // foundational settings 
+
+        let individualcells = document.getElementsByClassName("cell");
+        let whoWon = document.getElementById("winner");
+        let currentPlayer = "X";
+        let currentnotfiy = document.getElementById("PlayerTurn");
+        let replayGame = document.getElementById("restartB");
+        let playerx = [];
+        let player0 = [];
+        let winConditions = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+        let playerSymbol = "x";
+
+
+
+        // restart game 
+
+        function resetGame() {
+
+            for (x of individualcells) {
+
+                x.innerHTML = "";
+
+            }
+            playerx = [];
+            whoWon.innerHTML = "";
+            player0 = [];
+            currentnotfiy.innerHTML = "X";
+        }
+
+
+        for (x of individualcells) {
+
+            x.addEventListener("click", clickedcell);
+        }
+
+
+        // click a cell
+
+        function clickedcell() {
+
+            if (this.innerHTML == "") {
+                this.innerHTML = playerSymbol;
+                let cellPosition = this.getAttribute("cellIndex");
+
+
+
+                changePlayer(cellPosition);
+            } else {
+
+
+            }
+
+
+        }
+
+        // alternate between players (X or O)
+
+        function changePlayer(thepostion) {
+
+
+
+
+            if (playerSymbol == "x") {
+                currentPlayer = "O";
+                currentnotfiy.innerHTML = currentPlayer;
+                playerSymbol = "o";
+                playerx.push(Number(thepostion));
+
+            } else {
+                player0.push(Number(thepostion));
+                currentPlayer = "X";
+                currentnotfiy.innerHTML = currentPlayer;
+                playerSymbol = "x";
+
+            }
+
+            console.log(playerx);
+            console.log(player0);
+
+            for (fg = 0; fg < winConditions.length; fg++) {
+                nextSearch(fg);
+
+            }
+
+
+
+            for (fg = 0; fg < winConditions.length; fg++) {
+                nextSearchfor0(fg);
+
+            }
+
+        }
+
+
+        // Check if somone has won 
+
+        checkIfsomeoneWon();
+
+        function checkIfsomeoneWon() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+        // relevant function for checking if someone one 
+        function nextSearch(y) {
+
+            let counter = 0;
+
+
+            for (f of playerx) {
+
+                if (winConditions[y].includes(f)) {
+
+                    counter++;
+
+                }
+
+
+
+                if (counter == 3) {
+
+                    whoWon.innerHTML = "Player x won";
+
+
+
+                }
+
+            }
+
+
+
+
+
+        }
+
+        // Another relevant function for checking if someone one 
+        function nextSearchfor0(y) {
+
+            let counter = 0;
+
+
+            for (f of player0) {
+
+                if (winConditions[y].includes(f)) {
+
+                    counter++;
+
+                }
+
+
+
+                if (counter == 3) {
+
+
+
+
+                    whoWon.innerHTML = "Player 0 won";
+                }
+
+            }
+
+
+
+        }
+
+
+
+
+
+
+
+    </script>
 
 
 </body>
